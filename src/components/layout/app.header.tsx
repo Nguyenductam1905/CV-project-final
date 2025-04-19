@@ -10,17 +10,19 @@ import { NavDropdown } from 'react-bootstrap';
 import viFlag from '../../assets/svg/language/vi.svg';
 import enFlag from '../../assets/svg/language/en.svg';
 
+type ThemeContextType = "dark" | "light"
 function AppHeader() {
+
     const { theme, setTheme } = useCurrentApp();
     const { t, i18n } = useTranslation();
 
-    const handleMode = (mode) => {
+    const handleMode = (mode: ThemeContextType) => {
         localStorage.setItem("theme", mode);
         document.documentElement.setAttribute('data-bs-theme', mode);
         setTheme(mode);
     }
 
-    const renderFlag = (language) => {
+    const renderFlag = (language: string) => {
         return (
             <img
                 style={{ height: 20, width: 20 }}
@@ -65,7 +67,7 @@ function AppHeader() {
                         </div>
 
                         <NavDropdown
-                            title={renderFlag(i18n.resolvedLanguage)}
+                            title={renderFlag(i18n.resolvedLanguage || "en")}
                         >
                             <div
                                 onClick={() => i18n.changeLanguage("en")}
